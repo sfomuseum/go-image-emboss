@@ -49,7 +49,7 @@ Usage of ./bin/emboss:
 
 _Note that all these examples assume there is a copy of the [sfomuseum/swift-image-emboss-grpc](https://github.com/sfomuseum/swift-image-emboss-grpc) server instance already running somewhere it can be reached (`localhost:1234` in these examples)._
 
-#### Single object
+##### Single object
 
 ![](fixtures/cat-pin.jpg)
 
@@ -91,7 +91,7 @@ The image embossing service will return the following images:
 
 ![](fixtures/af-kit-emboss-005.png)
 
-#### Multiple objects combined
+##### Multiple objects combined
 
 If you want the service to return all those images in a single image passed the `-combined` flag, like this:
 
