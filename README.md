@@ -27,7 +27,23 @@ for _, im := range rsp {
 
 ## Tools
 
+```
+$> make cli
+go build -mod vendor -ldflags="-s -w" -o bin/emboss cmd/emboss/main.go
+```
+
 ### images-emboss
+
+```
+$> ./bin/emboss -h
+Usage of ./bin/emboss:
+  -combined
+    	Return a single image combining all the subjects that were derived from an image.
+  -embosser-uri string
+    	A valid sfomuseum/go-image-emboss.Embosser URI. (default "grpc://localhost:1234")
+```
+
+#### Examples
 
 ![](fixtures/cat-pin.jpg)
 
