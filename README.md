@@ -61,6 +61,13 @@ $> ./bin/emboss -embosser-uri grpc://localhost:1234 fixtures/af-kit.jpg
 
 ![](fixtures/af-kit-emboss-005.png)
 
+```
+$> ./bin/emboss -embosser-uri grpc://localhost:1234 -combined fixtures/af-kit.jpg
+2023/10/02 12:28:57 fixtures/af-kit-emboss-combined-001.png
+```
+
+![](af-kit-emboss-combined-001.png)
+
 https://collection.sfomuseum.org/objects/1780469983/
 
 ## See also

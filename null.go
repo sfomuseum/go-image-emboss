@@ -19,11 +19,11 @@ func NewNullEmbosser(ctx context.Context, uri string) (Embosser, error) {
 	return e, nil
 }
 
-func (e *NullEmbosser) EmbossImage(ctx context.Context, path string) ([]image.Image, error) {
+func (e *NullEmbosser) EmbossImage(ctx context.Context, path string, combined bool) ([]image.Image, error) {
 	return []image.Image{}, nil
 }
 
-func (e *NullEmbosser) EmbossImageWithReader(ctx context.Context, path string, r io.Reader) ([]image.Image, error) {
+func (e *NullEmbosser) EmbossImageWithReader(ctx context.Context, r io.Reader, path string, combined bool) ([]image.Image, error) {
 	return []image.Image{}, nil
 }
 

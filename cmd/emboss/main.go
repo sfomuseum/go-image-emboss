@@ -15,7 +15,8 @@ import (
 
 func main() {
 
-	embosser_uri := flag.String("embosser-uri", "local:///usr/local/sfomuseum/bin/image-emboss", "A valid sfomuseum/go-image-emboss.Embosser URI.")
+	embosser_uri := flag.String("embosser-uri", "grpc://localhost:1234", "A valid sfomuseum/go-image-emboss.Embosser URI.")
+	combined := flag.Bool("combined", false, "Return a single image combining all the subjects that were derived from an image.")
 
 	flag.Parse()
 
@@ -31,7 +32,7 @@ func main() {
 
 	for _, path := range flag.Args() {
 
-		rsp, err := em.EmbossImage(ctx, path)
+		rsp, err := em.EmbossImage(ctx, path, *combined)
 
 		if err != nil {
 			log.Fatalf("Failed to extract image from %s, %v", path, err)
@@ -46,6 +47,11 @@ func main() {
 		for idx, im := range rsp {
 
 			im_fname := fmt.Sprintf("%s-emboss-%03d.png", fname, idx+1)
+
+			if *combined {
+				im_fname = fmt.Sprintf("%s-emboss-combined-%03d.png", fname, idx+1)
+			}
+
 			im_path := filepath.Join(root, im_fname)
 
 			im_wr, err := os.OpenFile(im_path, os.O_RDWR|os.O_CREATE, 0644)

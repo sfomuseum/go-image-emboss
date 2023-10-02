@@ -57,7 +57,7 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 	return e, nil
 }
 
-func (e *GrpcEmbosser) EmbossImage(ctx context.Context, path string) ([]image.Image, error) {
+func (e *GrpcEmbosser) EmbossImage(ctx context.Context, path string, combined bool) ([]image.Image, error) {
 
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -70,10 +70,10 @@ func (e *GrpcEmbosser) EmbossImage(ctx context.Context, path string) ([]image.Im
 
 	defer im_r.Close()
 
-	return e.EmbossImageWithReader(ctx, path, im_r)
+	return e.EmbossImageWithReader(ctx, im_r, path, combined)
 }
 
-func (e *GrpcEmbosser) EmbossImageWithReader(ctx context.Context, path string, im_r io.Reader) ([]image.Image, error) {
+func (e *GrpcEmbosser) EmbossImageWithReader(ctx context.Context, im_r io.Reader, path string, combined bool) ([]image.Image, error) {
 
 	fname := filepath.Base(path)
 
@@ -86,6 +86,7 @@ func (e *GrpcEmbosser) EmbossImageWithReader(ctx context.Context, path string, i
 	req := &emboss_grpc.EmbossImageRequest{
 		Filename: fname,
 		Body:     body,
+		Combined: combined,
 	}
 
 	rsp, err := e.client.EmbossImage(ctx, req)

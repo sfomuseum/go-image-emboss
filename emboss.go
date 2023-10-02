@@ -13,8 +13,8 @@ import (
 )
 
 type Embosser interface {
-	EmbossImage(context.Context, string) ([]image.Image, error)
-	EmbossImageWithReader(context.Context, string, io.Reader) ([]image.Image, error)
+	EmbossImage(context.Context, string, bool) ([]image.Image, error)
+	EmbossImageWithReader(context.Context, io.Reader, string, bool) ([]image.Image, error)
 	Close(context.Context) error
 }
 
