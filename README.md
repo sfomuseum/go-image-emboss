@@ -6,6 +6,25 @@ Go package for interacting with the `sfomuseum/swift-image-emboss-grpc` tools
 
 Documentation is incomplete.
 
+## Example
+
+```
+import (
+       "context"
+       
+       "github.com/sfomuseum/go-image-emboss"
+)
+
+ctx := context.Background()
+embosser, _ := emboss.NewEmbosser(ctx, "grpc://localhost:1234")
+
+rsp, _ := embosser.EmbossImage(ctx, "example.jpg")
+
+for _, im := range rsp {
+	// Do something with im (which is an `image.Image` instance here)
+}		
+```
+
 ## Tools
 
 ### images-emboss
