@@ -4,7 +4,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"image/png"
 	"log"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/sfomuseum/go-image-emboss"
 )
@@ -33,6 +37,37 @@ func main() {
 			log.Fatalf("Failed to extract image from %s, %v", path, err)
 		}
 
-		fmt.Println(rsp)
+		root := filepath.Dir(path)
+		fname := filepath.Base(path)
+		ext := filepath.Ext(fname)
+
+		fname = strings.Replace(fname, ext, "", 1)
+
+		for idx, im := range rsp {
+
+			im_fname := fmt.Sprintf("%s-emboss-%03d.png", fname, idx+1)
+			im_path := filepath.Join(root, im_fname)
+
+			im_wr, err := os.OpenFile(im_path, os.O_RDWR|os.O_CREATE, 0644)
+
+			if err != nil {
+				log.Fatalf("Failed to open file for writing %s, %v", im_path, err)
+			}
+
+			err = png.Encode(im_wr, im)
+
+			if err != nil {
+				log.Fatalf("Failed to write PNG data for %s, %v", im_path, err)
+			}
+
+			err = im_wr.Close()
+
+			if err != nil {
+				log.Fatalf("Failed to close file for %s, %v", im_path, err)
+			}
+
+			log.Println(im_path)
+		}
+
 	}
 }
