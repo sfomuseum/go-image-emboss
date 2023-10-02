@@ -43,7 +43,7 @@ Usage of ./bin/emboss:
     	A valid sfomuseum/go-image-emboss.Embosser URI. (default "grpc://localhost:1234")
 ```
 
-#### Examples
+#### Example (single object)
 
 ![](fixtures/cat-pin.jpg)
 
@@ -55,6 +55,8 @@ $> ./bin/emboss -embosser-uri grpc://localhost:1234 fixtures/cat-pin.jpg
 ![](fixtures/cat-pin-emboss-001.png)
 
 * https://collection.sfomuseum.org/objects/1762759391/
+
+#### Example (multiple objects)
 
 ![](fixtures/af-kit.jpg)
 
@@ -76,6 +78,8 @@ $> ./bin/emboss -embosser-uri grpc://localhost:1234 fixtures/af-kit.jpg
 ![](fixtures/af-kit-emboss-004.png)
 
 ![](fixtures/af-kit-emboss-005.png)
+
+#### Example (multiple objects combined)
 
 ```
 $> ./bin/emboss -embosser-uri grpc://localhost:1234 -combined fixtures/af-kit.jpg
