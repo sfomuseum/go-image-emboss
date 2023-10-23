@@ -4,16 +4,17 @@ import (
 	"bytes"
 	"context"
 	"crypto/tls"
-	_ "crypto/x509"
+	"crypto/x509"
 	"fmt"
 	"image"
 	_ "image/png"
 	"io"
-	_ "io/ioutil"
+	"io/ioutil"
 	_ "log"
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
 
 	emboss_grpc "github.com/sfomuseum/go-image-emboss/grpc"
 	"google.golang.org/grpc"
@@ -40,18 +41,31 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 
 	q := u.Query()
 
-	tls_cert := q.Get("tls-certificate")
-	tls_key := q.Get("tls-key")
+	q_tls_cert := q.Get("tls-certificate")
+	q_tls_key := q.Get("tls-key")
+	q_tls_ca := q.Get("tls-ca-certificate")
+	q_tls_insecure := q.Get("tls-insecure")
 
 	addr := u.Host
 
 	var opts []grpc.DialOption
 	opts = append(opts)
 
-	if tls_cert != "" && tls_key != "" {
+	if q_tls_cert != "" && q_tls_key != "" {
 
-		/*
-			ca_cert, err := ioutil.ReadFile(tls_cert)
+		cert, err := tls.LoadX509KeyPair(q_tls_cert, q_tls_key)
+
+		if err != nil {
+			return nil, fmt.Errorf("Failed to load TLS pair, %w", err)
+		}
+
+		tls_config := &tls.Config{
+			Certificates: []tls.Certificate{cert},
+		}
+
+		if q_tls_ca != "" {
+
+			ca_cert, err := ioutil.ReadFile(q_tls_ca)
 
 			if err != nil {
 				return nil, fmt.Errorf("Failed to create CA certificate, %w", err)
@@ -64,18 +78,18 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 			if !ok {
 				return nil, fmt.Errorf("Failed to append CA certificate, %w", err)
 			}
-		*/
 
-		cert, err := tls.LoadX509KeyPair(tls_cert, tls_key)
+			tls_config.RootCAs = cert_pool
 
-		if err != nil {
-			return nil, fmt.Errorf("Failed to load TLS pair, %w", err)
-		}
+		} else if q_tls_insecure != "" {
 
-		tls_config := &tls.Config{
-			Certificates: []tls.Certificate{cert},
-			// RootCAs:      cert_pool,
-			InsecureSkipVerify: true,
+			v, err := strconv.ParseBool(q_tls_insecure)
+
+			if err != nil {
+				return nil, fmt.Errorf("Failed to parse ?tls-insecure= parameter, %w", err)
+			}
+
+			tls_config.InsecureSkipVerify = v
 		}
 
 		tls_credentials := credentials.NewTLS(tls_config)
