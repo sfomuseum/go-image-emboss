@@ -48,8 +48,7 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 
 	addr := u.Host
 
-	var opts []grpc.DialOption
-	opts = append(opts)
+	opts := make([]grpc.DialOption, 0)
 
 	if q_tls_cert != "" && q_tls_key != "" {
 
