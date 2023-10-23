@@ -3,10 +3,13 @@ package emboss
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
+	_ "crypto/x509"
 	"fmt"
 	"image"
 	_ "image/png"
 	"io"
+	_ "io/ioutil"
 	_ "log"
 	"net/url"
 	"os"
@@ -14,6 +17,7 @@ import (
 
 	emboss_grpc "github.com/sfomuseum/go-image-emboss/grpc"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 type GrpcEmbosser struct {
@@ -34,10 +38,52 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 		return nil, fmt.Errorf("Failed to parse URI, %w", err)
 	}
 
+	q := u.Query()
+
+	tls_cert := q.Get("tls-certificate")
+	tls_key := q.Get("tls-key")
+
 	addr := u.Host
 
 	var opts []grpc.DialOption
-	opts = append(opts, grpc.WithInsecure())
+	opts = append(opts)
+
+	if tls_cert != "" && tls_key != "" {
+
+		/*
+			ca_cert, err := ioutil.ReadFile(tls_cert)
+
+			if err != nil {
+				return nil, fmt.Errorf("Failed to create CA certificate, %w", err)
+			}
+
+			cert_pool := x509.NewCertPool()
+
+			ok := cert_pool.AppendCertsFromPEM(ca_cert)
+
+			if !ok {
+				return nil, fmt.Errorf("Failed to append CA certificate, %w", err)
+			}
+		*/
+
+		cert, err := tls.LoadX509KeyPair(tls_cert, tls_key)
+
+		if err != nil {
+			return nil, fmt.Errorf("Failed to load TLS pair, %w", err)
+		}
+
+		tls_config := &tls.Config{
+			Certificates: []tls.Certificate{cert},
+			// RootCAs:      cert_pool,
+			InsecureSkipVerify: true,
+		}
+
+		tls_credentials := credentials.NewTLS(tls_config)
+		opts = append(opts, grpc.WithTransportCredentials(tls_credentials))
+
+	} else {
+		opts = append(opts, grpc.WithInsecure())
+	}
 
 	conn, err := grpc.Dial(addr, opts...)
 
