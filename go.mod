@@ -5,7 +5,7 @@ toolchain go1.24.1
 
 require (
 	github.com/aaronland/go-roster v1.0.0
-	google.golang.org/grpc v1.64.0
+	google.golang.org/grpc v1.64.1
 	google.golang.org/protobuf v1.34.2
 )
 
