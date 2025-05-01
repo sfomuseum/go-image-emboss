@@ -122,6 +122,8 @@ $> ./bin/review-colors -h
     	Enable verbose (debug) logging.
 ```
 
+_Under the hood this uses the [aaronland/go-colours](https://github.com/aaronland/go-colours) package._
+
 #### Example
 
 First, make you sure you have a copy of the [swfit-image-emboss-grpc](https://github.com/sfomuseum/swift-image-emboss-grpc) server running. This is tool that does the image segmentation.
@@ -157,6 +159,9 @@ And then when you open your browser to `http://localhost:49787` (or whatever URL
 
 ![](docs/images/go-image-emboss-review-colors.png)
 
+This is all the `review-colors` tool does for the time being. I've considered making a fancy interactive web application but that has not happened yet.
+
+Unless you specify a custom `-root` flag all the images used by the web application (excluding the source images themselves) will be automatically be deleted when you stop the tool.
 
 ## See also
 
@@ -164,3 +169,4 @@ And then when you open your browser to `http://localhost:49787` (or whatever URL
 * https://github.com/sfomuseum/swift-image-emboss-grpc
 * https://collection.sfomuseum.org/objects/1762759391/
 * https://collection.sfomuseum.org/objects/1780469983/
+* https://github.com/aaronland/go-colours
