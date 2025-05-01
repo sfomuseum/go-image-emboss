@@ -122,7 +122,7 @@ $> ./bin/review-colors -h
     	Enable verbose (debug) logging.
 ```
 
-_Under the hood this uses the [aaronland/go-colours](https://github.com/aaronland/go-colours) package._
+_Under the hood this uses the [aaronland/go-colours](https://github.com/aaronland/go-colours) package so you should consult it for documentation on "extruders" and "palettes"._
 
 #### Example
 
