@@ -153,7 +153,7 @@ $> ./bin/review-colors  https://static.sfomuseum.org/media/176/271/272/3/1762712
 2025/05/01 15:30:51 INFO Server is ready and features are viewable url=http://localhost:49787
 ```
 
-The tool will fetch the image, hand it off to the `image-emboss-grpc-server` to derive sub-images and then extract the dominant colours for each image as well as aligning each colour with its closest match using one or more colour palettes.
+The tool will fetch the image, hand it off to the `image-emboss-grpc-server` to derive sub-images and then extract the dominant colours for the complete set of images as well as aligning each colour with its closest match using one or more colour palettes.
 
 And then when you open your browser to `http://localhost:49787` (or whatever URL the `review-colors` tool chooses for you) you see this:
 
