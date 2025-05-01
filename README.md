@@ -104,9 +104,69 @@ The image embossing service will return the following image:
 
 ![](fixtures/af-kit-emboss-combined-001.png)
 
+### review-colors
+
+Command line tool to perform image segmentation, colour extraction and "snap-to-grid" matching with one or more colour palettes for images.
+
+```
+$> ./bin/review-colors -h
+  -embosser-uri string
+    	A valid sfomuseum/go-image-emboss.Embosser URI. (default "grpc://localhost:8080")
+  -extruder-uri value
+    	Zero or more aaronland/go-colours/extruder.Extruder URIs. Default is to use all registered extruder schemes.
+  -palette-uri value
+    	Zero or more aaronland/go-colours/palette.Palette URIs. Default is to use all registered palette schemes.
+  -root string
+    	The path to a directory where images and HTML files associated with the review should be stored. If empty a new temporary directory will be created (and deleted when the application exits).
+  -verbose
+    	Enable verbose (debug) logging.
+```
+
+_Under the hood this uses the [aaronland/go-colours](https://github.com/aaronland/go-colours) package so you should consult it for documentation on "extruders" and "palettes"._
+
+#### Example
+
+First, make you sure you have a copy of the [swfit-image-emboss-grpc](https://github.com/sfomuseum/swift-image-emboss-grpc) server running. This is tool that does the image segmentation.
+
+```
+$> cd /usr/local/sfomuseum/swift-image-emboss-grpc
+$> swift build
+swift builds stuff here...
+
+$> make debug
+./.build/debug/image-emboss-grpc-server --logfile true
+
+2025-05-01T15:29:52-0700 info org.sfomuseum.text-emboss-grpc-server : [GRPCServer] server started on port 8080
+```
+
+_Note: The `image-emboss-grpc-server` depends on the availability of the Apple [Vision Frameworks](https://developer.apple.com/documentation/vision) so this will only work on Apple hardware._
+
+Next come back to this repository and build the `review-colors` tool. Finally run the `review-colors` tool by passing it the path, or URI, to one or more images.
+
+```
+$> cd /usr/local/sfomuseum/go-image-emboss
+$> make cli
+go build -mod vendor -ldflags="-s -w" -o bin/emboss cmd/emboss/main.go
+go build -mod vendor -ldflags="-s -w" -o bin/review-colors cmd/review-colors/main.go
+
+$> ./bin/review-colors  https://static.sfomuseum.org/media/176/271/272/3/1762712723_kriv1bFklzPUdgp3ZapyBmKyPgwfFL0x_z.jpg
+2025/05/01 15:30:51 INFO Server is ready and features are viewable url=http://localhost:49787
+```
+
+The tool will fetch the image, hand it off to the `image-emboss-grpc-server` to derive sub-images and then extract the dominant colours for the complete set of images as well as aligning each colour with its closest match using one or more colour palettes.
+
+And then when you open your browser to `http://localhost:49787` (or whatever URL the `review-colors` tool chooses for you) you see this:
+
+![](docs/images/go-image-emboss-review-colors.png)
+
+This is all the `review-colors` tool does for the time being. I've considered making a fancy interactive web application but that has not happened yet.
+
+Unless you specify a custom `-root` flag all the images used by the web application (excluding the source images themselves) will be automatically be deleted when you stop the tool.
+
 ## See also
 
 * https://github.com/sfomuseum/swift-image-emboss
 * https://github.com/sfomuseum/swift-image-emboss-grpc
 * https://collection.sfomuseum.org/objects/1762759391/
 * https://collection.sfomuseum.org/objects/1780469983/
+* https://github.com/aaronland/go-colours

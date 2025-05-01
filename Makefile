@@ -2,6 +2,7 @@ GOMOD=$(shell test -f "go.work" && echo "readonly" || echo "vendor")
 
 cli:
 	go build -mod $(GOMOD) -ldflags="-s -w" -o bin/emboss cmd/emboss/main.go
+	go build -mod $(GOMOD) -ldflags="-s -w" -o bin/review-colors cmd/review-colors/main.go
 
 # https://developers.google.com/protocol-buffers/docs/reference/go-generated
 # go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
