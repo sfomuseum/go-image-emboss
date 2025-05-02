@@ -3,7 +3,7 @@ module github.com/sfomuseum/go-image-emboss
 go 1.24.2
 
 require (
-	github.com/aaronland/go-colours v0.7.1
+	github.com/aaronland/go-colours v0.8.0
 	github.com/aaronland/go-roster v1.0.0
 	google.golang.org/grpc v1.72.0
 	google.golang.org/protobuf v1.36.6
@@ -16,6 +16,7 @@ require (
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c // indirect
 	github.com/sfomuseum/go-flags v0.10.0 // indirect
 	github.com/sfomuseum/go-www-show v1.0.0 // indirect
+	github.com/soniakeys/quant v1.0.0 // indirect
 	golang.org/x/image v0.26.0 // indirect
 	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect

@@ -1,7 +1,7 @@
 github.com/RobCherry/vibrant v0.0.0-20250501174501-d90de4256706 h1:zEiKsu747z/ZWHQZn1nB7m8yUtbOpcRUD9z6qnr2DcA=
 github.com/RobCherry/vibrant v0.0.0-20250501174501-d90de4256706/go.mod h1:yA17zF6wyqYS1Nrqe5dQ+fZC6PK/LfLJbpIKke6keEo=
-github.com/aaronland/go-colours v0.7.1 h1:sVqlh/kM+PC4oSSrBQFDzGK4RM1n15b424xD+yGBW7k=
-github.com/aaronland/go-colours v0.7.1/go.mod h1:xyEqITqqqvhfGAqnWqQCtbQOAIOSCqxo1AbkQ6bOeH4=
+github.com/aaronland/go-colours v0.8.0 h1:1bLuVubkfUKlWQbQV0jQt4QlTz6Ny1V7BF3CDzkjxaI=
+github.com/aaronland/go-colours v0.8.0/go.mod h1:VZfD3Kf31cSXjtvgaGw942UhQYsJ2BJ1HMGa3rhF8Po=
 github.com/aaronland/go-roster v1.0.0 h1:FRDGrTqsYySKjWnAhbBGXyeGlI/o5/t9FZYCbUmyQtI=
 github.com/aaronland/go-roster v1.0.0/go.mod h1:KIsYZgrJlAsyb9LsXSCvlqvbcCBVjCSqcQiZx42i9ro=
 github.com/go-logr/logr v1.4.2 h1:6pFjapn8bFcIbiKo3XT4j/BhANplGihG6tvd+8rYgrY=
@@ -24,6 +24,8 @@ github.com/sfomuseum/go-flags v0.10.0 h1:1OC1ACxpWMsl3XQ9OeNVMQj7Zi2CzufP3Rym3mP
 github.com/sfomuseum/go-flags v0.10.0/go.mod h1:VXOnnX1/yxQpX2yiwHaBV6aCmhtszQOL5bL1/nNo3co=
 github.com/sfomuseum/go-www-show v1.0.0 h1:Q0vRdbCz2Ulqgut85vm0kRyO7FXPbO/gay5QMuWPqk8=
 github.com/sfomuseum/go-www-show v1.0.0/go.mod h1:P2RVABhL8JumRWLHXQ6AA8epIkBSTWAZ5LlL7zO07TE=
+github.com/soniakeys/quant v1.0.0 h1:N1um9ktjbkZVcywBVAAYpZYSHxEfJGzshHCxx/DaI0Y=
+github.com/soniakeys/quant v1.0.0/go.mod h1:HI1k023QuVbD4H8i9YdfZP2munIHU4QpjsImz6Y6zds=
 go.opentelemetry.io/auto/sdk v1.1.0 h1:cH53jehLUN6UFLY71z+NDOiNJqDdPRaXzTel0sJySYA=
 go.opentelemetry.io/auto/sdk v1.1.0/go.mod h1:3wSPjt5PWp2RhlCcmmOial7AvC4DQqZb7a7wCow3W8A=
 go.opentelemetry.io/otel v1.34.0 h1:zRLXxLCgL1WyKsPVrgbSdMN4c0FMkDAskSTQP+0hdUY=
