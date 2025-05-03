@@ -1,10 +1,11 @@
 # github.com/RobCherry/vibrant v0.0.0-20250501174501-d90de4256706
 ## explicit; go 1.24.2
 github.com/RobCherry/vibrant
-# github.com/aaronland/go-colours v0.8.0
+# github.com/aaronland/go-colours v0.10.0
 ## explicit; go 1.24.2
 github.com/aaronland/go-colours
 github.com/aaronland/go-colours/app/review
+github.com/aaronland/go-colours/extrude
 github.com/aaronland/go-colours/extruder
 github.com/aaronland/go-colours/grid
 github.com/aaronland/go-colours/palette

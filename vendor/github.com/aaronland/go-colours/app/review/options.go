@@ -13,6 +13,7 @@ type RunOptions struct {
 	ExtruderURIs []string
 	PaletteURIs  []string
 	Root         string
+	AllowRemote  bool
 	Images       []string
 	Verbose      bool
 }
@@ -45,6 +46,7 @@ func RunOptionsFromFlagSet(fs *flag.FlagSet) (*RunOptions, error) {
 		ExtruderURIs: extruder_uris,
 		PaletteURIs:  palette_uris,
 		Root:         root,
+		AllowRemote:  allow_remote,
 		Images:       fs.Args(),
 		Verbose:      verbose,
 	}

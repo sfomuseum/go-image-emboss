@@ -1,7 +1,7 @@
 github.com/RobCherry/vibrant v0.0.0-20250501174501-d90de4256706 h1:zEiKsu747z/ZWHQZn1nB7m8yUtbOpcRUD9z6qnr2DcA=
 github.com/RobCherry/vibrant v0.0.0-20250501174501-d90de4256706/go.mod h1:yA17zF6wyqYS1Nrqe5dQ+fZC6PK/LfLJbpIKke6keEo=
-github.com/aaronland/go-colours v0.8.0 h1:1bLuVubkfUKlWQbQV0jQt4QlTz6Ny1V7BF3CDzkjxaI=
-github.com/aaronland/go-colours v0.8.0/go.mod h1:VZfD3Kf31cSXjtvgaGw942UhQYsJ2BJ1HMGa3rhF8Po=
+github.com/aaronland/go-colours v0.10.0 h1:1GWe6AmY2xunNwjpKvtGqZB4TVrUYp74lBWAfaVTmXA=
+github.com/aaronland/go-colours v0.10.0/go.mod h1:VZfD3Kf31cSXjtvgaGw942UhQYsJ2BJ1HMGa3rhF8Po=
 github.com/aaronland/go-roster v1.0.0 h1:FRDGrTqsYySKjWnAhbBGXyeGlI/o5/t9FZYCbUmyQtI=
 github.com/aaronland/go-roster v1.0.0/go.mod h1:KIsYZgrJlAsyb9LsXSCvlqvbcCBVjCSqcQiZx42i9ro=
 github.com/go-logr/logr v1.4.2 h1:6pFjapn8bFcIbiKo3XT4j/BhANplGihG6tvd+8rYgrY=

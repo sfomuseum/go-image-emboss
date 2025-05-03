@@ -3,7 +3,7 @@ module github.com/sfomuseum/go-image-emboss
 go 1.24.2
 
 require (
-	github.com/aaronland/go-colours v0.8.0
+	github.com/aaronland/go-colours v0.10.0
 	github.com/aaronland/go-roster v1.0.0
 	google.golang.org/grpc v1.72.0
 	google.golang.org/protobuf v1.36.6
