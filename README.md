@@ -110,6 +110,11 @@ Command line tool to perform image segmentation, colour extraction and "snap-to-
 
 ```
 $> ./bin/review-colors -h
+Command line tool to perform colour extraction and "snap-to-grid" matching with one or more colour palettes for images, emitting the results as an HTML page.
+Usage:
+	 ./bin/review-colors [options] uri(N) uri(N)
+  -allow-remote
+    	Allow fetching remote images (HTTP(S)). (default true)
   -embosser-uri string
     	A valid sfomuseum/go-image-emboss.Embosser URI. (default "grpc://localhost:8080")
   -extruder-uri value
