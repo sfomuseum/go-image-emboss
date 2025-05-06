@@ -23,7 +23,7 @@ import (
 
 type GrpcEmbosser struct {
 	conn   *grpc.ClientConn
-	client emboss_grpc.EmbosserClient
+	client emboss_grpc.ImageEmbosserClient
 }
 
 func init() {
@@ -106,7 +106,7 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 
 	// defer conn.Close()
 
-	client := emboss_grpc.NewEmbosserClient(conn)
+	client := emboss_grpc.NewImageEmbosserClient(conn)
 
 	e := &GrpcEmbosser{
 		conn:   conn,
