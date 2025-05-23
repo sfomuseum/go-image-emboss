@@ -16,7 +16,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	emboss_grpc "github.com/sfomuseum/go-image-emboss/grpc"
+	emboss_grpc "github.com/sfomuseum/go-image-emboss/v2/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

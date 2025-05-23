@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sfomuseum/go-image-emboss"
+	"github.com/sfomuseum/go-image-emboss/v2"
 )
 
 func main() {

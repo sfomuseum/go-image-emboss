@@ -15,7 +15,7 @@ import (
 	"strings"
 
 	"github.com/aaronland/go-colours/app/review"
-	"github.com/sfomuseum/go-image-emboss"
+	"github.com/sfomuseum/go-image-emboss/v2"
 )
 
 func main() {

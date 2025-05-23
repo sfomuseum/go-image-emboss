@@ -12,7 +12,7 @@ Documentation is incomplete.
 import (
        "context"
        
-       "github.com/sfomuseum/go-image-emboss"
+       "github.com/sfomuseum/go-image-emboss/v2"
 )
 
 ctx := context.Background()
