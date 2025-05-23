@@ -56,12 +56,12 @@ func main() {
 
 	for _, path := range opts.Images {
 
-		if strings.HasPrefix(path, "https://") || strings.HasPrefix(path, "http"){
+		if strings.HasPrefix(path, "https://") || strings.HasPrefix(path, "http") {
 
 			if !opts.AllowRemote {
 				log.Fatalf("Remote URIs forbidden")
 			}
-			
+
 			rsp, err := http.Get(path)
 
 			if err != nil {
