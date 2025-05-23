@@ -5,7 +5,7 @@ go 1.24.3
 require (
 	github.com/aaronland/go-colours v0.10.0
 	github.com/aaronland/go-roster v1.0.0
-	google.golang.org/grpc v1.72.0
+	google.golang.org/grpc v1.72.1
 	google.golang.org/protobuf v1.36.6
 )
 
