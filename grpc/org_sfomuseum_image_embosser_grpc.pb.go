@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v5.29.3
-// source: grpc/embosser.proto
+// source: grpc/org_sfomuseum_image_embosser.proto
 
 package grpc
 
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ImageEmbosser_EmbossImage_FullMethodName = "/image_embosser.ImageEmbosser/EmbossImage"
+	ImageEmbosser_EmbossImage_FullMethodName = "/org_sfomuseum_image_embosser.ImageEmbosser/EmbossImage"
 )
 
 // ImageEmbosserClient is the client API for ImageEmbosser service.
@@ -96,7 +96,7 @@ func _ImageEmbosser_EmbossImage_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ImageEmbosser_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "image_embosser.ImageEmbosser",
+	ServiceName: "org_sfomuseum_image_embosser.ImageEmbosser",
 	HandlerType: (*ImageEmbosserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -105,5 +105,5 @@ var ImageEmbosser_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "grpc/embosser.proto",
+	Metadata: "grpc/org_sfomuseum_image_embosser.proto",
 }

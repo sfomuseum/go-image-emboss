@@ -10,7 +10,7 @@ cli:
 # https://github.com/sfomuseum/swift-image-emboss-grpc/blob/main/Sources/image-emboss-grpc-server/embosser.proto
 
 proto:
-	protoc --go_out=. --go_opt=paths=source_relative --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative grpc/embosser.proto
+	protoc --go_out=. --go_opt=paths=source_relative --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative grpc/org_sfomuseum_image_embosser.proto
 
 test:
 	go run -mod $(GOMOD) cmd/emboss/main.go -embosser-uri grpc://localhost:8080 fixtures/cat-pin.jpg
