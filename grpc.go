@@ -10,15 +10,16 @@ import (
 	_ "image/png"
 	"io"
 	"io/ioutil"
-	_ "log"
 	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
 	emboss_grpc "github.com/sfomuseum/go-image-emboss/v2/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/keepalive"
 )
 
 type GrpcEmbosser struct {
@@ -98,7 +99,38 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 		opts = append(opts, grpc.WithInsecure())
 	}
 
-	conn, err := grpc.Dial(addr, opts...)
+	// START OF...
+	// https://github.com/grpc/proposal/blob/master/A8-client-side-keepalive.md
+
+	with_keepalive := false
+
+	if q.Has("keepalive") {
+
+		v, err := strconv.ParseBool(q.Get("keepalive"))
+
+		if err != nil {
+			return nil, err
+		}
+
+		with_keepalive = v
+	}
+
+	if with_keepalive {
+
+		kp_time := 2 * time.Minute
+		kp_timeout := 1 * time.Minute
+
+		kp := keepalive.ClientParameters{
+			Time:    kp_time,
+			Timeout: kp_timeout,
+		}
+
+		opts = append(opts, grpc.WithKeepaliveParams(kp))
+	}
+
+	// END OF...
+
+	conn, err := grpc.NewClient(addr, opts...)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to dial '%s', %w", addr, err)
