@@ -10,15 +10,16 @@ import (
 	_ "image/png"
 	"io"
 	"io/ioutil"
-	_ "log"
 	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
 	emboss_grpc "github.com/sfomuseum/go-image-emboss/v2/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/keepalive"
 )
 
 type GrpcEmbosser struct {
@@ -97,6 +98,14 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 	} else {
 		opts = append(opts, grpc.WithInsecure())
 	}
+
+	keepalive_opts := grpc.WithKeepaliveParams(keepalive.ClientParameters{
+		Time:                30 * time.Second, // Ping the server if idle for 10 seconds
+		Timeout:             30 * time.Second, // Wait 2 seconds for the ping ack before considering the connection dead
+		PermitWithoutStream: true,             // Send pings even without active streams
+	})
+
+	opts = append(opts, keepalive_opts)
 
 	conn, err := grpc.Dial(addr, opts...)
 
