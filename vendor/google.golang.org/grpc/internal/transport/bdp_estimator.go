@@ -21,6 +21,8 @@ package transport
 import (
 	"sync"
 	"time"
+
+	"log/slog"
 )
 
 const (
@@ -105,6 +107,7 @@ func (b *bdpEstimator) add(n uint32) bool {
 func (b *bdpEstimator) calculate(d [8]byte) {
 	// Check if the ping acked for was the bdp ping.
 	if bdpPing.data != d {
+		slog.Info("BDP TOO BIG")
 		return
 	}
 	b.mu.Lock()
@@ -123,6 +126,9 @@ func (b *bdpEstimator) calculate(d [8]byte) {
 	if bwCurrent > b.bwMax {
 		b.bwMax = bwCurrent
 	}
+
+	slog.Info("BDP", "sample", b.sample, "beta", beta*float64(b.bdp), "current", bwCurrent, "max", b.bwMax, "limit", bdpLimit)
+	
 	// If the current sample (which is smaller than or equal to the 1.5 times the real BDP) is
 	// greater than or equal to 2/3rd our perceived bdp AND this is the maximum bandwidth seen so far, we
 	// should update our perception of the network BDP.
@@ -134,6 +140,7 @@ func (b *bdpEstimator) calculate(d [8]byte) {
 		}
 		bdp := b.bdp
 		b.mu.Unlock()
+		slog.Info("UPDATE FLOW CONTROL", "limit", bdpLimit)		
 		b.updateFlowControl(bdp)
 		return
 	}
