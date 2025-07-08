@@ -15,10 +15,12 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
 	emboss_grpc "github.com/sfomuseum/go-image-emboss/v2/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/keepalive"
 )
 
 type GrpcEmbosser struct {
@@ -97,6 +99,14 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 	} else {
 		opts = append(opts, grpc.WithInsecure())
 	}
+
+	keepalive_params := keepalive.ClientParameters{
+		Time:                10 * time.Minute,
+		Timeout:             20 * time.Second,
+		PermitWithoutStream: false,
+	}
+
+	opts = append(opts, grpc.WithKeepaliveParams(keepalive_params))
 
 	conn, err := grpc.Dial(addr, opts...)
 
