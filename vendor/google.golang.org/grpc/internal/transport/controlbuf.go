@@ -28,8 +28,6 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"log/slog"
-	
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/hpack"
 	"google.golang.org/grpc/internal/grpclog"
@@ -777,7 +775,6 @@ func (l *loopyWriter) pingHandler(p *ping) error {
 	if !p.ack {
 		l.bdpEst.timesnap(p.data)
 	}
-	slog.Info("WRITE PING")
 	return l.framer.fr.WritePing(p.ack, p.data)
 
 }

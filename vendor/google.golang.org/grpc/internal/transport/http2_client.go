@@ -32,8 +32,6 @@ import (
 	"sync/atomic"
 	"time"
 
-	"log/slog"
-	
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/hpack"
 	"google.golang.org/grpc/codes"
@@ -385,7 +383,6 @@ func NewHTTP2Client(connectCtx, ctx context.Context, addr resolver.Address, opts
 		t.initialWindowSize = opts.InitialWindowSize
 		dynamicWindow = false
 	}
-
 	if dynamicWindow {
 		t.bdpEst = &bdpEstimator{
 			bdp:               initialWindowSize,
@@ -1321,18 +1318,13 @@ func (t *http2Client) handleSettings(f *http2.SettingsFrame, isFirst bool) {
 }
 
 func (t *http2Client) handlePing(f *http2.PingFrame) {
-
-	slog.Info("HANDLE PING", "is ack", f.IsAck())
-	
 	if f.IsAck() {
 		// Maybe it's a BDP ping.
 		if t.bdpEst != nil {
-			slog.Info("CALCULATE BDP")
 			t.bdpEst.calculate(f.Data)
 		}
 		return
 	}
-	slog.Info("DO PING")
 	pingAck := &ping{ack: true}
 	copy(pingAck.data[:], f.Data[:])
 	t.controlBuf.put(pingAck)
@@ -1667,12 +1659,7 @@ func (t *http2Client) reader(errCh chan<- error) {
 	// loop to keep reading incoming messages on this transport.
 	for {
 		t.controlBuf.throttle()
-		slog.Info("DO READ FRAME", "ka", t.keepaliveEnabled, "lastread", atomic.LoadInt64(&t.lastRead))
-		
 		frame, err := t.framer.fr.ReadFrame()
-
-		slog.Info("DID READ FRAME", "type", fmt.Sprintf("%T", frame))
-		
 		if t.keepaliveEnabled {
 			atomic.StoreInt64(&t.lastRead, time.Now().UnixNano())
 		}
