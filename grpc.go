@@ -15,12 +15,10 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"time"
 
 	emboss_grpc "github.com/sfomuseum/go-image-emboss/v2/grpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/keepalive"
 )
 
 type GrpcEmbosser struct {
@@ -100,15 +98,18 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 		opts = append(opts, grpc.WithInsecure())
 	}
 
-	keepalive_params := keepalive.ClientParameters{
-		Time:                10 * time.Minute,
-		Timeout:             20 * time.Second,
-		PermitWithoutStream: false,
-	}
+	// This is necessary to disable the dynamicWindow flags in internal/http2_client.go
+	// which is what triggers the BDP estimator code which, in turn, is what triggers the
+	// too many ping and subsequent ENHANCE_YOUR_CALM errros. See also:
+	// https://github.com/grpc/grpc-swift-2/issues/5#issuecomment-2984421768
+	//
+	// 65535 is the initial window size in internal/transport/defaults.go and anything
+	// greater than this will disable the BDP estimator stuff
 
-	opts = append(opts, grpc.WithKeepaliveParams(keepalive_params))
+	window_sz := int32(65535 + 1)
+	opts = append(opts, grpc.WithInitialWindowSize(window_sz))
 
-	conn, err := grpc.Dial(addr, opts...)
+	conn, err := grpc.NewClient(addr, opts...)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to dial '%s', %w", addr, err)

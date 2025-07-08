@@ -385,6 +385,7 @@ func NewHTTP2Client(connectCtx, ctx context.Context, addr resolver.Address, opts
 		t.initialWindowSize = opts.InitialWindowSize
 		dynamicWindow = false
 	}
+
 	if dynamicWindow {
 		t.bdpEst = &bdpEstimator{
 			bdp:               initialWindowSize,
@@ -1676,7 +1677,6 @@ func (t *http2Client) reader(errCh chan<- error) {
 			atomic.StoreInt64(&t.lastRead, time.Now().UnixNano())
 		}
 		if err != nil {
-			slog.Info("SAD", "error", err)
 			// Abort an active stream if the http2.Framer returns a
 			// http2.StreamError. This can happen only if the server's response
 			// is malformed http2.
