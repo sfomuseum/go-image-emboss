@@ -106,8 +106,8 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 	// 65535 is the initial window size in internal/transport/defaults.go and anything
 	// greater than this will disable the BDP estimator stuff
 
-	window_sz := int32(65535 + 1)
-	opts = append(opts, grpc.WithInitialWindowSize(window_sz))
+	// window_sz := int32(65535 + 1)
+	// opts = append(opts, grpc.WithInitialWindowSize(window_sz))
 
 	conn, err := grpc.NewClient(addr, opts...)
 
