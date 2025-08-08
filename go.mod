@@ -5,8 +5,8 @@ go 1.24.3
 require (
 	github.com/aaronland/go-colours v0.12.1
 	github.com/aaronland/go-roster v1.0.0
-	google.golang.org/grpc v1.73.0
-	google.golang.org/protobuf v1.36.6
+	google.golang.org/grpc v1.74.2
+	google.golang.org/protobuf v1.36.7
 )
 
 require (
@@ -18,8 +18,8 @@ require (
 	github.com/sfomuseum/go-www-show v1.0.0 // indirect
 	github.com/soniakeys/quant v1.0.0 // indirect
 	golang.org/x/image v0.28.0 // indirect
-	golang.org/x/net v0.38.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/net v0.40.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/text v0.26.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250324211829-b45e905df463 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250528174236-200df99c418a // indirect
 )
