@@ -98,6 +98,9 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 		opts = append(opts, grpc.WithInsecure())
 	}
 
+	// START OF this should no longer be necessary but leaving it here
+	// for a while longer "just in case"...
+	// 
 	// This is necessary to disable the dynamicWindow flags in internal/http2_client.go
 	// which is what triggers the BDP estimator code which, in turn, is what triggers the
 	// too many ping and subsequent ENHANCE_YOUR_CALM errros. See also:
@@ -105,17 +108,17 @@ func NewGrpcEmbosser(ctx context.Context, uri string) (Embosser, error) {
 	//
 	// 65535 is the initial window size in internal/transport/defaults.go and anything
 	// greater than this will disable the BDP estimator stuff
-
+	//
 	// window_sz := int32(65535 + 1)
 	// opts = append(opts, grpc.WithInitialWindowSize(window_sz))
-
+	//
+	// END OF this should no longer be necessary
+	
 	conn, err := grpc.NewClient(addr, opts...)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to dial '%s', %w", addr, err)
 	}
-
-	// defer conn.Close()
 
 	client := emboss_grpc.NewImageEmbosserClient(conn)
 
